@@ -3,8 +3,8 @@ import type { ClaimStatus } from '../types.js';
 
 export function claimFlairText(status: ClaimStatus, username: string): string {
   return status === 'investigating'
-    ? `🔍 u/${username} investigating`
-    : `👁️ u/${username} reviewing`;
+    ? `[Investigating] u/${username}`
+    : `[Claimed] u/${username}`;
 }
 
 export function isPostId(itemId: string): boolean {

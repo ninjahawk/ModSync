@@ -16,14 +16,15 @@ export async function handleInstall(_event: unknown, context: TriggerContext): P
     console.error('[ModSync] Could not enable post flair (may need to do it manually in sub settings):', e);
   }
 
-  // Schedule daily summary job (runs at 9am UTC every day)
-  try {
-    await context.scheduler.runJob({
-      name: 'dailySummary',
-      cron: '0 9 * * *',
-    });
-  } catch (e) {
-    console.log('[ModSync] Daily summary job already scheduled or skipped:', e);
+  // Schedule daily summary job only on fresh install, not upgrades
+  const jobScheduled = await context.redis.get(`scheduler:dailySummary:${subId}`);
+  if (!jobScheduled) {
+    try {
+      await context.scheduler.runJob({ name: 'dailySummary', cron: '0 9 * * *' });
+      await context.redis.set(`scheduler:dailySummary:${subId}`, '1');
+    } catch (e) {
+      console.log('[ModSync] Could not schedule daily summary:', e);
+    }
   }
 
   console.log(`[ModSync] Installed in subreddit ${subId} — dashboard created on first use via menu.`);

@@ -2,7 +2,7 @@ import type { TriggerContext } from '@devvit/public-api';
 import { getClaim, releaseClaim } from '../claims/claimManager.js';
 import { logActivity } from '../claims/activityLog.js';
 import { Keys } from '../redis/keys.js';
-import { restoreFlair } from '../utils/flair.js';
+import { restoreFlair, isPostId } from '../utils/flair.js';
 
 // Structural type matching what Devvit provides for ModAction events
 type ModActionEvent = {
@@ -30,7 +30,7 @@ export async function handleModAction(event: ModActionEvent, context: TriggerCon
 
   if (released) {
     // Restore original flair if this was a post
-    if (claim?.isPost) {
+    if (claim && (claim.isPost || isPostId(targetId))) {
       try {
         const subreddit = await context.reddit.getSubredditById(subId);
         if (subreddit) {

@@ -2,7 +2,7 @@ import type { Context } from '@devvit/public-api';
 import { getClaim, releaseClaim, touchActiveMod } from '../claims/claimManager.js';
 import { logActivity } from '../claims/activityLog.js';
 import { Keys } from '../redis/keys.js';
-import { restoreFlair } from '../utils/flair.js';
+import { restoreFlair, isPostId } from '../utils/flair.js';
 
 type MenuItemEvent = { targetId: string };
 
@@ -24,8 +24,8 @@ export async function releaseItem(event: MenuItemEvent, context: Context): Promi
 
   await releaseClaim(redis, subredditId, itemId, currentUser.id);
 
-  // Restore original flair if this was a post
-  if (existing.isPost) {
+  // Restore original flair — fallback to ID prefix for claims made before isPost field was added
+  if (existing.isPost || isPostId(itemId)) {
     const subreddit = await reddit.getCurrentSubreddit();
     await restoreFlair(reddit, itemId, subreddit.name, existing.originalFlairText, existing.originalFlairCssClass);
   }
