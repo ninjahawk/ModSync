@@ -63,6 +63,9 @@ export const DashboardPost: CustomPostType = {
               modUsername: msg.modUsername,
               status: msg.status ?? 'claimed',
               claimedAt: msg.claimedAt ?? Date.now(),
+              isPost: false,
+              originalFlairText: null,
+              originalFlairCssClass: null,
             },
           ]);
           setActivity((prev) => [

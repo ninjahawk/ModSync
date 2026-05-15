@@ -14,7 +14,7 @@ import { DashboardPost }        from './dashboard/DashboardPost.js';
 import { dailySummaryJob }      from './scheduler/cleanup.js';
 
 // ─── Platform capabilities ────────────────────────────────────────────────────
-Devvit.configure({ redditAPI: true, redis: true });
+Devvit.configure({ redditAPI: true, redis: true, realtime: true });
 
 // ─── App settings ─────────────────────────────────────────────────────────────
 Devvit.addSettings(getAllSettings());

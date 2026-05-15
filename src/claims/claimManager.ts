@@ -7,7 +7,8 @@ export async function tryClaimItem(
   subId: string,
   itemId: string,
   mod: { id: string; username: string },
-  status: ClaimStatus = 'claimed'
+  status: ClaimStatus = 'claimed',
+  flairInfo: { isPost: boolean; originalText: string | null; originalCssClass: string | null } = { isPost: false, originalText: null, originalCssClass: null }
 ): Promise<{ success: boolean; existingClaim?: ClaimData }> {
   const key = Keys.claim(subId, itemId);
   const ttlSeconds = status === 'claimed' ? TTL.claimed : TTL.investigating;
@@ -17,6 +18,9 @@ export async function tryClaimItem(
     status,
     claimedAt: Date.now(),
     itemId,
+    isPost: flairInfo.isPost,
+    originalFlairText: flairInfo.originalText,
+    originalFlairCssClass: flairInfo.originalCssClass,
   } satisfies ClaimData);
 
   // SET NX — atomic, returns 'OK' on success or null if key already exists

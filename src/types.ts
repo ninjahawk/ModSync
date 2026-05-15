@@ -10,6 +10,9 @@ export interface ClaimData {
   status: ClaimStatus;
   claimedAt: number;
   itemId: string;
+  isPost: boolean;
+  originalFlairText: string | null;
+  originalFlairCssClass: string | null;
 }
 
 export interface ActiveMod {

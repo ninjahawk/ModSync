@@ -1,7 +1,8 @@
 import type { TriggerContext } from '@devvit/public-api';
-import { releaseClaim } from '../claims/claimManager.js';
+import { getClaim, releaseClaim } from '../claims/claimManager.js';
 import { logActivity } from '../claims/activityLog.js';
 import { Keys } from '../redis/keys.js';
+import { restoreFlair } from '../utils/flair.js';
 
 // Structural type matching what Devvit provides for ModAction events
 type ModActionEvent = {
@@ -24,9 +25,21 @@ export async function handleModAction(event: ModActionEvent, context: TriggerCon
   const autoRelease = await context.settings.get<boolean>('enableAutoRelease');
   if (autoRelease === false) return;
 
+  const claim = await getClaim(context.redis, subId, targetId);
   const released = await releaseClaim(context.redis, subId, targetId, modId);
 
   if (released) {
+    // Restore original flair if this was a post
+    if (claim?.isPost) {
+      try {
+        const subreddit = await context.reddit.getSubredditById(subId);
+        if (subreddit) {
+          await restoreFlair(context.reddit, targetId, subreddit.name, claim.originalFlairText, claim.originalFlairCssClass);
+        }
+      } catch (e) {
+        console.error('[ModSync] Failed to restore flair on auto-release:', e);
+      }
+    }
     await context.realtime.send(Keys.channelName(subId), {
       type: 'ACTION',
       itemId: targetId,
