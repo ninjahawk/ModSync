@@ -1,13 +1,16 @@
-![ModSync](./snoo.png)
+<div align="center">
 
 # ModSync
 
-**Real-time mod queue coordination for Reddit communities. Stop working on the same post twice.**
+**Real-time mod queue coordination for Reddit communities.**
+**Stop working on the same post twice.**
 
 ![Platform](https://img.shields.io/badge/platform-Devvit-ff4500?style=flat-square&logo=reddit&logoColor=white)
 ![Version](https://img.shields.io/badge/version-0.0.2-blue?style=flat-square)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178c6?style=flat-square&logo=typescript&logoColor=white)
 ![License](https://img.shields.io/badge/license-BSD--3--Clause-green?style=flat-square)
+
+</div>
 
 ---
 
