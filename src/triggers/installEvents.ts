@@ -5,8 +5,16 @@ export async function handleInstall(_event: unknown, context: TriggerContext): P
   const subId = context.subredditId;
   if (!subId) return;
 
-  const existing = await context.redis.get(Keys.dashboardId(subId));
-  if (existing) return;
+  // Schedule daily summary job (runs at 9am UTC every day)
+  try {
+    await context.scheduler.runJob({
+      name: 'dailySummary',
+      cron: '0 9 * * *',
+    });
+  } catch (e) {
+    // Job may already be scheduled on upgrade — not an error
+    console.log('[ModSync] Daily summary job already scheduled or skipped:', e);
+  }
 
-  console.log(`[ModSync] Installed in subreddit ${subId} — dashboard will be created on first use.`);
+  console.log(`[ModSync] Installed in subreddit ${subId} — dashboard created on first use via menu.`);
 }

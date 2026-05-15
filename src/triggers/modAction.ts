@@ -21,6 +21,9 @@ export async function handleModAction(event: ModActionEvent, context: TriggerCon
 
   if (!subId || !targetId || !modId) return;
 
+  const autoRelease = await context.settings.get<boolean>('enableAutoRelease');
+  if (autoRelease === false) return;
+
   const released = await releaseClaim(context.redis, subId, targetId, modId);
 
   if (released) {
