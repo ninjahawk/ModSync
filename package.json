@@ -1,0 +1,20 @@
+{
+  "name": "modsync",
+  "version": "0.1.0",
+  "description": "Real-time mod queue coordination for Reddit moderators",
+  "private": true,
+  "scripts": {
+    "build": "devvit build",
+    "upload": "devvit upload",
+    "playtest": "devvit playtest",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@devvit/public-api": "0.12.23"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "~5.7.0"
+  }
+}
