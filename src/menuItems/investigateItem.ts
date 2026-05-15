@@ -24,7 +24,7 @@ export async function investigateItem(event: MenuItemEvent, context: Context): P
     if (postId) {
       const existing = await getClaim(redis, subredditId, itemId);
       const subreddit = await reddit.getCurrentSubreddit();
-      await setClaimFlair(reddit, postId, subreddit.name, 'investigating');
+      await setClaimFlair(reddit, postId, subreddit.name, 'investigating', currentUser.username);
       // original flair already stored in claim from when it was first claimed
       void existing;
     }
@@ -33,7 +33,7 @@ export async function investigateItem(event: MenuItemEvent, context: Context): P
     let flairInfo = { isPost: false, originalText: null as string | null, originalCssClass: null as string | null };
     if (postId) {
       const subreddit = await reddit.getCurrentSubreddit();
-      const flair = await setClaimFlair(reddit, postId, subreddit.name, 'investigating');
+      const flair = await setClaimFlair(reddit, postId, subreddit.name, 'investigating', currentUser.username);
       flairInfo = { isPost: true, originalText: flair.originalText, originalCssClass: flair.originalCssClass };
     }
 

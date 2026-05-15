@@ -1,10 +1,11 @@
 import type { RedditAPIClient } from '@devvit/public-api';
 import type { ClaimStatus } from '../types.js';
 
-export const CLAIM_FLAIR: Record<ClaimStatus, string> = {
-  claimed:      '👁️ Under Review',
-  investigating: '🔍 Investigating',
-};
+export function claimFlairText(status: ClaimStatus, username: string): string {
+  return status === 'investigating'
+    ? `🔍 u/${username} investigating`
+    : `👁️ u/${username} reviewing`;
+}
 
 export function isPostId(itemId: string): boolean {
   return itemId.startsWith('t3_');
@@ -14,7 +15,8 @@ export async function setClaimFlair(
   reddit: RedditAPIClient,
   postId: string,
   subredditName: string,
-  status: ClaimStatus
+  status: ClaimStatus,
+  username: string
 ): Promise<{ originalText: string | null; originalCssClass: string | null }> {
   let originalText: string | null = null;
   let originalCssClass: string | null = null;
@@ -28,12 +30,9 @@ export async function setClaimFlair(
   }
 
   try {
-    await reddit.setPostFlair({
-      subredditName,
-      postId,
-      text: CLAIM_FLAIR[status],
-    });
-    console.log(`[ModSync] Set flair "${CLAIM_FLAIR[status]}" on ${postId}`);
+    const text = claimFlairText(status, username);
+    await reddit.setPostFlair({ subredditName, postId, text });
+    console.log(`[ModSync] Set flair "${text}" on ${postId}`);
   } catch (e) {
     console.error('[ModSync] Failed to set claim flair:', e);
   }

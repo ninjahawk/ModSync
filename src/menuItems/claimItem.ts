@@ -20,7 +20,7 @@ export async function claimItem(event: MenuItemEvent, context: Context): Promise
 
   if (postId) {
     const subreddit = await reddit.getCurrentSubreddit();
-    const flair = await setClaimFlair(reddit, postId, subreddit.name, 'claimed');
+    const flair = await setClaimFlair(reddit, postId, subreddit.name, 'claimed', currentUser.username);
     flairInfo = { isPost: true, originalText: flair.originalText, originalCssClass: flair.originalCssClass };
   }
 

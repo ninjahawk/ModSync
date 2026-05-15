@@ -5,6 +5,17 @@ export async function handleInstall(_event: unknown, context: TriggerContext): P
   const subId = context.subredditId;
   if (!subId) return;
 
+  // Enable post flair so claim indicators are visible in the feed
+  try {
+    const subreddit = await context.reddit.getCurrentSubreddit();
+    await subreddit.updateSettings({
+      postFlairs: { enabled: true, usersCanAssign: false },
+    });
+    console.log('[ModSync] Post flair enabled.');
+  } catch (e) {
+    console.error('[ModSync] Could not enable post flair (may need to do it manually in sub settings):', e);
+  }
+
   // Schedule daily summary job (runs at 9am UTC every day)
   try {
     await context.scheduler.runJob({
@@ -12,7 +23,6 @@ export async function handleInstall(_event: unknown, context: TriggerContext): P
       cron: '0 9 * * *',
     });
   } catch (e) {
-    // Job may already be scheduled on upgrade — not an error
     console.log('[ModSync] Daily summary job already scheduled or skipped:', e);
   }
 
