@@ -25,11 +25,11 @@ Mods work around this by refreshing the queue more often, working in reverse ord
 
 ModSync adds a lightweight real-time coordination layer on top of the Reddit mod queue. When a mod claims a post or comment for review, their entire team sees it instantly — no more stepping on each other.
 
-**👁️ Claim** — Mark an item as under review. Post flair updates immediately: `[Claimed] u/ModName`
+**👁️ Claim** — Mark an item as under review. The post's flair immediately updates to `[Claimed] u/YourUsername` — every mod scrolling the queue sees exactly who has it without opening the post.
 
-**🔍 Investigate** — Hold a claim for 30 min while you dig into user history or consult teammates.
+**🔍 Investigate** — Need to leave the queue to dig into a user's history? Upgrade to Investigating. Extends your hold to 30 min and updates flair to `[Investigating] u/YourUsername`.
 
-**✓ Release** — Drop the claim when done. Flair restores to its original state automatically.
+**✓ Release** — Drop the claim when done. The original flair is restored exactly as it was, including any user-set flair.
 
 ---
 
