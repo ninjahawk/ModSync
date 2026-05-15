@@ -13,7 +13,7 @@
 
 Research presented at **CHI 2026** surveyed 110 Reddit moderators across 400+ subreddits and found:
 
-> **74.5% of moderators regularly experience collisions** — multiple mods acting on the same queue item simultaneously, wasting effort and creating conflicting decisions.
+> **74.5% of moderators regularly experience collisions** - multiple mods acting on the same queue item simultaneously, wasting effort and creating conflicting decisions.
 
 Mods work around this by refreshing the queue more often, working in reverse order, or coordinating after the fact in Discord. None of it actually solves the problem.
 
@@ -23,39 +23,39 @@ Mods work around this by refreshing the queue more often, working in reverse ord
 
 ## What It Does
 
-ModSync adds a lightweight real-time coordination layer on top of the Reddit mod queue. When a mod claims a post or comment for review, their entire team sees it instantly — no more stepping on each other.
+ModSync adds a lightweight real-time coordination layer on top of the Reddit mod queue. When a mod claims a post or comment for review, their entire team sees it instantly - no more stepping on each other.
 
-**👁️ Claim** — Mark an item as under review. The post's flair immediately updates to `[Claimed] u/YourUsername` — every mod scrolling the queue sees exactly who has it without opening the post.
+**👁️ Claim** - Mark an item as under review. The post's flair immediately updates to `[Claimed] u/YourUsername` - every mod scrolling the queue sees exactly who has it without opening the post.
 
-**🔍 Investigate** — Need to leave the queue to dig into a user's history? Upgrade to Investigating. Extends your hold to 30 min and updates flair to `[Investigating] u/YourUsername`.
+**🔍 Investigate** - Need to leave the queue to dig into a user's history? Upgrade to Investigating. Extends your hold to 30 min and updates flair to `[Investigating] u/YourUsername`.
 
-**✓ Release** — Drop the claim when done. The original flair is restored exactly as it was, including any user-set flair.
+**✓ Release** - Drop the claim when done. The original flair is restored exactly as it was, including any user-set flair.
 
 ---
 
 ## Features
 
-- **Atomic claim acquisition** — Redis `SET NX` ensures only one mod can claim an item at a time. No race conditions.
-- **Live flair indicators** — Posts show `[Claimed] u/ModName` or `[Investigating] u/ModName` directly in the feed. Any mod scrolling the queue sees who has what at a glance.
-- **Auto-release on action** — When a mod removes or approves an item, their claim releases automatically. No manual cleanup.
-- **TTL-based expiry** — Claims expire after 5 minutes (configurable). Stale claims never block the queue.
-- **Live dashboard** — A pinned custom post shows all active claims, recent activity, and which mods are online — updated in real time.
-- **Collision warnings** — If a mod tries to claim something already taken, they see exactly who has it and how long ago they claimed it.
-- **Daily digest** — Optional modmail summary of team activity sent every morning.
+- **Atomic claim acquisition** - Redis `SET NX` ensures only one mod can claim an item at a time. No race conditions.
+- **Live flair indicators** - Posts show `[Claimed] u/ModName` or `[Investigating] u/ModName` directly in the feed. Any mod scrolling the queue sees who has what at a glance.
+- **Auto-release on action** - When a mod removes or approves an item, their claim releases automatically. No manual cleanup.
+- **TTL-based expiry** - Claims expire after 5 minutes (configurable). Stale claims never block the queue.
+- **Live dashboard** - A pinned custom post shows all active claims, recent activity, and which mods are online, updated in real time.
+- **Collision warnings** - If a mod tries to claim something already taken, they see exactly who has it and how long ago they claimed it.
+- **Daily digest** - Optional modmail summary of team activity sent every morning.
 
 ---
 
 ## How It Works
 
 ```
-Mod A opens queue → clicks "Claim for Review"
+Mod A opens queue -> clicks "Claim for Review"
   └─ Redis SET NX claim:subId:postId { mod, status, TTL: 5min }
-  └─ Post flair → "[Claimed] u/ModA"
-  └─ Realtime broadcast → all open dashboards update
+  └─ Post flair -> "[Claimed] u/ModA"
+  └─ Realtime broadcast -> all open dashboards update
 
-Mod B opens same post → clicks "Claim for Review"
+Mod B opens same post -> clicks "Claim for Review"
   └─ Redis SET NX returns null (already claimed)
-  └─ Toast: "⚠️ u/ModA is already reviewing this (claimed 30s ago)"
+  └─ Toast: "u/ModA is already reviewing this (claimed 30s ago)"
   └─ Mod B moves on
 
 Mod A removes post via normal Reddit UI
@@ -71,13 +71,13 @@ Mod A removes post via normal Reddit UI
 
 Install directly from the [Reddit App Directory](https://developers.reddit.com/apps/modsync-queue).
 
-Once installed, go to your subreddit → **⋯ menu** → **New ModSync Dashboard** to create and pin the live coordination board.
+Once installed, go to your subreddit, open the menu, and select **New ModSync Dashboard** to create and pin the live coordination board.
 
 ---
 
 ## Menu Items
 
-All items are **mod-only** and appear in the `⋯` context menu on posts and comments.
+All items are **mod-only** and appear in the context menu on posts and comments.
 
 | Action | Location | Description |
 |---|---|---|
@@ -102,9 +102,9 @@ All items are **mod-only** and appear in the `⋯` context menu on posts and com
 
 ## Built With
 
-- [Devvit](https://developers.reddit.com) — Reddit's native developer platform
-- Redis — Atomic claim state with TTL expiry
-- Realtime channels — Live dashboard updates across all connected mods
+- [Devvit](https://developers.reddit.com) - Reddit's native developer platform
+- Redis - Atomic claim state with TTL expiry
+- Realtime channels - Live dashboard updates across all connected mods
 - TypeScript
 
 ---
