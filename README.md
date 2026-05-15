@@ -1,20 +1,20 @@
-<div align="center">
+<p align="center">
   <img src="./snoo.png" alt="ModSync" width="120" />
+</p>
 
-  <h1>ModSync</h1>
+<h1 align="center">ModSync</h1>
 
-  <p><strong>Real-time mod queue coordination for Reddit communities.</strong><br/>
-  Stop working on the same post twice.</p>
+<p align="center">
+  <strong>Real-time mod queue coordination for Reddit communities.</strong><br/>
+  Stop working on the same post twice.
+</p>
 
-  <p>
-    <img src="https://img.shields.io/badge/platform-Devvit-ff4500?style=flat-square&logo=reddit&logoColor=white" alt="Platform" />
-    <img src="https://img.shields.io/badge/version-0.1.0-blue?style=flat-square" alt="Version" />
-    <img src="https://img.shields.io/badge/TypeScript-5.7-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-    <img src="https://img.shields.io/badge/license-BSD--3--Clause-green?style=flat-square" alt="License" />
-  </p>
-
-  <br/>
-</div>
+<p align="center">
+  <img src="https://img.shields.io/badge/platform-Devvit-ff4500?style=flat-square&logo=reddit&logoColor=white" alt="Platform" />
+  <img src="https://img.shields.io/badge/version-0.0.2-blue?style=flat-square" alt="Version" />
+  <img src="https://img.shields.io/badge/TypeScript-5.7-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/license-BSD--3--Clause-green?style=flat-square" alt="License" />
+</p>
 
 ---
 
@@ -34,29 +34,18 @@ Mods work around this by refreshing the queue more often, working in reverse ord
 
 ModSync adds a lightweight real-time coordination layer on top of the Reddit mod queue. When a mod claims a post or comment for review, their entire team sees it instantly — no more stepping on each other.
 
-<div align="center">
-  <table>
-    <tr>
-      <td align="center"><strong>👁️ Claim</strong></td>
-      <td align="center"><strong>🔍 Investigate</strong></td>
-      <td align="center"><strong>✓ Release</strong></td>
-    </tr>
-    <tr>
-      <td>Mark an item as under review. Post flair updates immediately: <code>[Claimed] u/ModName</code></td>
-      <td>Hold a claim for 30 min while you dig into user history or consult teammates.</td>
-      <td>Drop the claim when done. Flair restores to its original state automatically.</td>
-    </tr>
-  </table>
-</div>
+| | 👁️ Claim | 🔍 Investigate | ✓ Release |
+|---|---|---|---|
+| | Mark an item as under review. Post flair updates immediately: `[Claimed] u/ModName` | Hold a claim for 30 min while you dig into user history or consult teammates. | Drop the claim when done. Flair restores to its original state automatically. |
 
 ---
 
 ## Features
 
 - **Atomic claim acquisition** — Redis `SET NX` ensures only one mod can claim an item at a time. No race conditions.
-- **Live flair indicators** — Posts show `[Claimed] u/ModName` or `[Investigating] u/ModName` directly in the feed. Any mod scrolling the queue sees who has what.
+- **Live flair indicators** — Posts show `[Claimed] u/ModName` or `[Investigating] u/ModName` directly in the feed. Any mod scrolling the queue sees who has what at a glance.
 - **Auto-release on action** — When a mod removes or approves an item, their claim releases automatically. No manual cleanup.
-- **TTL-based expiry** — Claims expire after 5 minutes (configurable), investigating holds expire after 30 minutes. Stale claims never block the queue.
+- **TTL-based expiry** — Claims expire after 5 minutes (configurable). Stale claims never block the queue.
 - **Live dashboard** — A pinned custom post shows all active claims, recent activity, and which mods are online — updated in real time via Devvit's realtime channel API.
 - **Collision warnings** — If a mod tries to claim something already taken, they see exactly who has it and how long ago they claimed it.
 - **Daily digest** — Optional modmail summary of team activity sent every morning.
@@ -133,13 +122,11 @@ Configure per-subreddit in your app settings:
 
 ModSync is directly informed by:
 
-> *"Think about it like you're a firefighter": Understanding How Reddit Moderators Use the Modqueue*
-> — CHI 2026, ACM Conference on Human Factors in Computing Systems
+> *"Think about it like you're a firefighter": Understanding How Reddit Moderators Use the Modqueue*  
+> CHI 2026, ACM Conference on Human Factors in Computing Systems
 
 The paper surveyed 110 moderators across 400+ subreddits, identifying queue collisions as the most consistent and unresolved pain point in Reddit moderation workflows.
 
 ---
 
-<div align="center">
-  <p>Built for the <a href="https://mod-tools-migration.devpost.com/">Reddit Mod Tools & Migrated Apps Hackathon 2026</a></p>
-</div>
+<p align="center">Built for the <a href="https://mod-tools-migration.devpost.com/">Reddit Mod Tools & Migrated Apps Hackathon 2026</a></p>
