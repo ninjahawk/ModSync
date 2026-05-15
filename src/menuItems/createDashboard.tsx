@@ -26,7 +26,8 @@ export async function createDashboard(_event: unknown, context: Context): Promis
       ),
     });
     await redis.set(Keys.dashboardId(subredditId), post.id);
-    ui.showToast({ text: '✓ Dashboard created! Pin it for your mod team.', appearance: 'success' });
+    await post.sticky(1);
+    ui.showToast({ text: '✓ Dashboard created and pinned to top of sub.', appearance: 'success' });
   } catch (e) {
     console.error('[ModSync] Failed to create dashboard post:', e);
     ui.showToast({ text: 'Failed to create dashboard. Check app permissions.', appearance: 'neutral' });
