@@ -2,3 +2,5 @@ node_modules/
 dist/
 .devvit/
 *.log
+.env
+.env.*
