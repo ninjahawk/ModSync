@@ -1,20 +1,13 @@
-<p align="center">
-  <img src="./snoo.png" alt="ModSync" width="120" />
-</p>
+![ModSync](./snoo.png)
 
-<h1 align="center">ModSync</h1>
+# ModSync
 
-<p align="center">
-  <strong>Real-time mod queue coordination for Reddit communities.</strong><br/>
-  Stop working on the same post twice.
-</p>
+**Real-time mod queue coordination for Reddit communities. Stop working on the same post twice.**
 
-<p align="center">
-  <img src="https://img.shields.io/badge/platform-Devvit-ff4500?style=flat-square&logo=reddit&logoColor=white" alt="Platform" />
-  <img src="https://img.shields.io/badge/version-0.0.2-blue?style=flat-square" alt="Version" />
-  <img src="https://img.shields.io/badge/TypeScript-5.7-3178c6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/license-BSD--3--Clause-green?style=flat-square" alt="License" />
-</p>
+![Platform](https://img.shields.io/badge/platform-Devvit-ff4500?style=flat-square&logo=reddit&logoColor=white)
+![Version](https://img.shields.io/badge/version-0.0.2-blue?style=flat-square)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178c6?style=flat-square&logo=typescript&logoColor=white)
+![License](https://img.shields.io/badge/license-BSD--3--Clause-green?style=flat-square)
 
 ---
 
@@ -34,9 +27,11 @@ Mods work around this by refreshing the queue more often, working in reverse ord
 
 ModSync adds a lightweight real-time coordination layer on top of the Reddit mod queue. When a mod claims a post or comment for review, their entire team sees it instantly — no more stepping on each other.
 
-| | 👁️ Claim | 🔍 Investigate | ✓ Release |
-|---|---|---|---|
-| | Mark an item as under review. Post flair updates immediately: `[Claimed] u/ModName` | Hold a claim for 30 min while you dig into user history or consult teammates. | Drop the claim when done. Flair restores to its original state automatically. |
+**👁️ Claim** — Mark an item as under review. Post flair updates immediately: `[Claimed] u/ModName`
+
+**🔍 Investigate** — Hold a claim for 30 min while you dig into user history or consult teammates.
+
+**✓ Release** — Drop the claim when done. Flair restores to its original state automatically.
 
 ---
 
@@ -46,7 +41,7 @@ ModSync adds a lightweight real-time coordination layer on top of the Reddit mod
 - **Live flair indicators** — Posts show `[Claimed] u/ModName` or `[Investigating] u/ModName` directly in the feed. Any mod scrolling the queue sees who has what at a glance.
 - **Auto-release on action** — When a mod removes or approves an item, their claim releases automatically. No manual cleanup.
 - **TTL-based expiry** — Claims expire after 5 minutes (configurable). Stale claims never block the queue.
-- **Live dashboard** — A pinned custom post shows all active claims, recent activity, and which mods are online — updated in real time via Devvit's realtime channel API.
+- **Live dashboard** — A pinned custom post shows all active claims, recent activity, and which mods are online — updated in real time.
 - **Collision warnings** — If a mod tries to claim something already taken, they see exactly who has it and how long ago they claimed it.
 - **Daily digest** — Optional modmail summary of team activity sent every morning.
 
@@ -98,8 +93,6 @@ All items are **mod-only** and appear in the `⋯` context menu on posts and com
 
 ## Settings
 
-Configure per-subreddit in your app settings:
-
 | Setting | Default | Description |
 |---|---|---|
 | Claim duration | 5 min | How long a "Claim for Review" holds before expiring |
@@ -122,11 +115,11 @@ Configure per-subreddit in your app settings:
 
 ModSync is directly informed by:
 
-> *"Think about it like you're a firefighter": Understanding How Reddit Moderators Use the Modqueue*  
+> *"Think about it like you're a firefighter": Understanding How Reddit Moderators Use the Modqueue*
 > CHI 2026, ACM Conference on Human Factors in Computing Systems
 
 The paper surveyed 110 moderators across 400+ subreddits, identifying queue collisions as the most consistent and unresolved pain point in Reddit moderation workflows.
 
 ---
 
-<p align="center">Built for the <a href="https://mod-tools-migration.devpost.com/">Reddit Mod Tools & Migrated Apps Hackathon 2026</a></p>
+Built for the [Reddit Mod Tools & Migrated Apps Hackathon 2026](https://mod-tools-migration.devpost.com/)
