@@ -68,10 +68,21 @@ src/
 
 ## Current Status (May 15, 2026)
 - App submitted for review (required for custom post type apps before wide install)
-- Pending approval email from Reddit before can install on large subs
+- Pending approval email from Reddit before can install on large subs (r/iPhone15Pro, r/HGK477, r/NetflixYou, r/Pandora queued)
 - Tested and working on r/PokemonOopsie playtest
 - Devpost submission copy in `DEVPOST.md`
-- Demo video not yet recorded
+- Demo video not yet recorded — needs to be done on a real sub once approved
+- README live on GitHub and developer portal (pure markdown, no HTML, no em dashes)
+- App description: "Never waste a mod action on something your teammate already handled."
+- Hackathon submission link: https://mod-tools-migration.devpost.com (Submit Project button)
+
+## Adoption Plan
+- Post on r/devvit to announce + speed up app review
+- Post on r/modnews with the CHI stat as the hook
+- Install on all owned subs once approved
+- DM other mod teams directly to get outside installs before May 27
+- Record demo video on a real recognizable sub, not PokemonOopsie
+- Target: 2-3 outside mod teams using it before submission deadline
 
 ## Rules
 - No co-author attribution in commits or anywhere in the project
